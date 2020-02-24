@@ -1,18 +1,15 @@
 package variant3;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Main {
+public class VehicleService {
     public static void main(String[] args) throws IOException, ParseException {
 //        Vehicle vehicle1 = new Vehicle();
 //        vehicle1.input();
@@ -36,10 +33,7 @@ public class Main {
         isVehicleMoreThan10YearsOld(vehicles);
         System.out.println();
         System.out.println("Sorted vehicles list:");
-        vehicles = vehicles.stream()
-                .sorted(Comparator.comparing(Vehicle::getBrand).thenComparing(Vehicle::getModel))
-                .peek(Vehicle::output)
-                .collect(Collectors.toList());
+        Vehicle.sortVehicles(vehicles);
 
         System.out.println();
         writeToFile(vehicles, "VehiclesList");
@@ -53,8 +47,13 @@ public class Main {
         }
     }
 
-    public static Date convertStringToDate(String date) throws ParseException {
-        return new SimpleDateFormat("dd.MM.yyyy").parse(date);
+    public static Date convertStringToDate(String date) {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException();
     }
 
     public static void isVehicleMoreThan10YearsOld(List<Vehicle> vehicles) {
@@ -67,7 +66,7 @@ public class Main {
         }
     }
 
-    public static void writeToFile(List list, String fileName) {
+    public static void writeToFile(List<Vehicle> list, String fileName) {
         try {
             PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
             for (Object e : list) {
@@ -82,9 +81,8 @@ public class Main {
 
     public static void serializeToXML(VehicleCollection vehicles, String fileName) {
         try {
-            File xmlOutput = new File(fileName);
             XmlMapper xmlMapper = new XmlMapper();
-            xmlMapper.writeValue(xmlOutput, vehicles);
+            xmlMapper.writeValue(new File(fileName), vehicles);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,4 +94,3 @@ public class Main {
         return xmlMapper.readValue(fileToRead, VehicleCollection.class);
     }
 }
-

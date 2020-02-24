@@ -31,33 +31,9 @@
     </vehicleList>
     <vehicleList>
         <Car>
-            <brand>Ford</brand>
-            <model>Kuga</model>
-            <productionDate>1511388000000</productionDate>
-            <fuelType>Diesel</fuelType>
-        </Car>
-    </vehicleList>
-    <vehicleList>
-        <Car>
-            <brand>Audi</brand>
-            <model>A1</model>
-            <productionDate>1451167200000</productionDate>
-            <fuelType>Diesel</fuelType>
-        </Car>
-    </vehicleList>
-    <vehicleList>
-        <Car>
-            <brand>Volkswagen</brand>
-            <model>Golf</model>
-            <productionDate>1575583200000</productionDate>
-            <fuelType>Petrol</fuelType>
-        </Car>
-    </vehicleList>
-    <vehicleList>
-        <Car>
-            <brand>Volga</brand>
-            <model>Pobeda</model>
-            <productionDate>162939600000</productionDate>
+            <brand>Toyota</brand>
+            <model>Yaris</model>
+            <productionDate>1121288400000</productionDate>
             <fuelType>Petrol</fuelType>
         </Car>
     </vehicleList>

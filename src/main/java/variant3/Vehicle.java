@@ -3,16 +3,17 @@ package variant3;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
@@ -95,7 +96,6 @@ public class Vehicle {
         return fullYears;
     }
 
-
     public void vehicleMoreThan10YearsOld(List<Vehicle> vehicles) {
         for (int i = 0; i < vehicles.size(); i++) {
             Vehicle vehicle = vehicles.get(i);
@@ -103,5 +103,12 @@ public class Vehicle {
                 vehicle.output();
             }
         }
+    }
+
+    public static List<Vehicle> sortVehicles(List<Vehicle> vehicles) {
+        return vehicles.stream()
+                .sorted(Comparator.comparing(Vehicle::getBrand).thenComparing(Vehicle::getModel))
+                .peek(Vehicle::output)
+                .collect(Collectors.toList());
     }
 }
