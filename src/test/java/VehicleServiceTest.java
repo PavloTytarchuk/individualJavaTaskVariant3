@@ -14,12 +14,12 @@ public class VehicleServiceTest {
     @Test
     public void serializedAndDeserializedDataShouldBeTheSame() throws IOException {
         //arrange
-        VehicleCollection listToSerialize = testData();
+        VehicleCollection expectedCollection = testData();
         //act
         VehicleService.serializeToXML(testData(), "serializationTest.xml");
-        VehicleCollection result = VehicleService.deserializeListFromXML("serializationTest.xml");
+        VehicleCollection actualCollection = VehicleService.deserializeListFromXML("serializationTest.xml");
         //assert
-        ReflectionAssert.assertReflectionEquals(listToSerialize, result);
+        ReflectionAssert.assertReflectionEquals("Deserialization isn't working properly", expectedCollection, actualCollection);
     }
 
     private static VehicleCollection testData() {

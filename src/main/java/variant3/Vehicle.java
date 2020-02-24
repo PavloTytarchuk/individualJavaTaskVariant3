@@ -17,6 +17,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -106,7 +107,21 @@ public class Vehicle {
     public static List<Vehicle> sortVehicles(List<Vehicle> vehicles) {
         return vehicles.stream()
                 .sorted(Comparator.comparing(Vehicle::getBrand).thenComparing(Vehicle::getModel))
-                .peek(Vehicle::output)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vehicle)) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return Objects.equals(brand, vehicle.brand) &&
+                Objects.equals(model, vehicle.model) &&
+                Objects.equals(productionDate, vehicle.productionDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(brand, model, productionDate);
     }
 }

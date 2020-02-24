@@ -33,7 +33,10 @@ public class VehicleService {
         isVehicleMoreThan10YearsOld(vehicles);
         System.out.println();
         System.out.println("Sorted vehicles list:");
-        Vehicle.sortVehicles(vehicles);
+        vehicles = Vehicle.sortVehicles(vehicles);
+        for (Vehicle v : vehicles) {
+            v.output();
+        }
 
         System.out.println();
         writeToFile(vehicles, "VehiclesList");

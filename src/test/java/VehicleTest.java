@@ -1,6 +1,5 @@
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.unitils.reflectionassert.ReflectionAssert;
 import variant3.Car;
 import variant3.Vehicle;
 import variant3.VehicleService;
@@ -17,20 +16,21 @@ public class VehicleTest {
     @Test
     public void methodShouldShowFullYearsOfVehicle() {
         //arrange
-        int expectedResult = 17;
+        int expectedFullYears = 17;
         //act
-        int actualResult = testVehicle.getAge();
+        int actualFullYears = testVehicle.getAge();
         //assert
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(actualFullYears, expectedFullYears, "Expected and actual full years do not correspond");
     }
 
     @Test
     public void methodShouldSortByBrandAndModel() {
         //arrange
-        List<Vehicle> sorted = Vehicle.sortVehicles(testVehicleList());
+        List<Vehicle> actualResult = Vehicle.sortVehicles(testVehicleList());
         //act
+        List<Vehicle> expectedResult = correctlySortedVehiclesList();
         //assert
-        ReflectionAssert.assertReflectionEquals(sorted, correctlySortedVehiclesList());
+        Assert.assertEquals(actualResult, expectedResult, "Sorting doesn't work correct");
     }
 
     private static List<Vehicle> testVehicleList() {

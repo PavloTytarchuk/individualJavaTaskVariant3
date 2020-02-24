@@ -4,6 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class VehicleCollection {
     @JacksonXmlElementWrapper(useWrapping = false)
@@ -22,5 +23,18 @@ public class VehicleCollection {
 
     public void setVehicleList(List<Vehicle> vehicleList) {
         this.vehicleList = vehicleList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VehicleCollection)) return false;
+        VehicleCollection that = (VehicleCollection) o;
+        return Objects.equals(vehicleList, that.vehicleList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vehicleList);
     }
 }

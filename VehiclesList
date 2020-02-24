@@ -1,8 +1,8 @@
-Brand: LAZ; Model: ElectroLAZ; ProductionDate: 2017-06-29;
-Brand: LAZ; Model: CityLAZ; ProductionDate: 2009-02-19;
-Brand: Toyota; Model: Corolla; ProductionDate: 2013-12-21; FuelType: Petrol;
-Brand: Subaru; Model: Forester; ProductionDate: 2008-12-31; FuelType: Petrol;
-Brand: Ford; Model: Kuga; ProductionDate: 2017-11-23; FuelType: Diesel;
 Brand: Audi; Model: A1; ProductionDate: 2015-12-27; FuelType: Diesel;
-Brand: Volkswagen; Model: Golf; ProductionDate: 2019-12-06; FuelType: Petrol;
+Brand: Ford; Model: Kuga; ProductionDate: 2017-11-23; FuelType: Diesel;
+Brand: LAZ; Model: CityLAZ; ProductionDate: 2009-02-19;
+Brand: LAZ; Model: ElectroLAZ; ProductionDate: 2017-06-29;
+Brand: Subaru; Model: Forester; ProductionDate: 2008-12-31; FuelType: Petrol;
+Brand: Toyota; Model: Corolla; ProductionDate: 2013-12-21; FuelType: Petrol;
 Brand: Volga; Model: Pobeda; ProductionDate: 1975-03-02; FuelType: Petrol;
+Brand: Volkswagen; Model: Golf; ProductionDate: 2019-12-06; FuelType: Petrol;
