@@ -3,9 +3,8 @@ package variant3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Car extends Vehicle {
     private String fuelType;
@@ -13,7 +12,7 @@ public class Car extends Vehicle {
     public Car() {
     }
 
-    public Car(String brand, String model, Date productionDate, String fuelType) {
+    public Car(String brand, String model, LocalDate productionDate, String fuelType) {
         super(brand, model, productionDate);
         this.fuelType = fuelType;
     }
@@ -39,10 +38,10 @@ public class Car extends Vehicle {
             setBrand(reader.readLine());
             setModel(reader.readLine());
             String date = reader.readLine();
-            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-            setProductionDate(format.parse(date));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            setProductionDate(LocalDate.parse(date, formatter));
             setFuelType(reader.readLine());
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             System.out.println("You've entered incorrect value, try again");
             input();
         }

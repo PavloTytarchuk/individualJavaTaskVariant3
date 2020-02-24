@@ -1,18 +1,22 @@
 package variant3;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -23,12 +27,15 @@ import java.util.stream.Collectors;
 public class Vehicle {
     private String brand;
     private String model;
-    private Date productionDate;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    private LocalDate productionDate;
 
     public Vehicle() {
     }
 
-    public Vehicle(String brand, String model, Date productionDate) {
+    public Vehicle(String brand, String model, LocalDate productionDate) {
         this.brand = brand;
         this.model = model;
         this.productionDate = productionDate;
@@ -50,11 +57,11 @@ public class Vehicle {
         this.model = model;
     }
 
-    public Date getProductionDate() {
+    public LocalDate getProductionDate() {
         return productionDate;
     }
 
-    public void setProductionDate(Date productionDate) {
+    public void setProductionDate(LocalDate productionDate) {
         this.productionDate = productionDate;
     }
 
@@ -70,8 +77,9 @@ public class Vehicle {
             brand = reader.readLine();
             model = reader.readLine();
             String date = reader.readLine();
-            productionDate = new SimpleDateFormat("dd.MM.yyyy").parse(date);
-        } catch (IOException | ParseException e) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            productionDate = LocalDate.parse(date, formatter);
+        } catch (IOException e) {
             System.out.println("You've entered incorrect value, try again");
             input();
         }
@@ -83,17 +91,7 @@ public class Vehicle {
 
     @JsonIgnore
     public int getAge() {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        String[] productionDateArray = format.format(productionDate).split("\\.");
-        String[] currentDateArray = format.format(new Date()).split("\\.");
-
-        int fullYears = Integer.parseInt(currentDateArray[2]) - Integer.parseInt(productionDateArray[2]);
-        if (Integer.parseInt(currentDateArray[1]) - Integer.parseInt(productionDateArray[1]) < 0) {
-            fullYears = fullYears - 1;
-        } else if (Integer.parseInt(currentDateArray[1]) - Integer.parseInt(productionDateArray[1]) == 0 && Integer.parseInt(currentDateArray[0]) - Integer.parseInt(productionDateArray[0]) < 0) {
-            fullYears = fullYears - 1;
-        }
-        return fullYears;
+        return Period.between(productionDate, LocalDate.now()).getYears();
     }
 
     public void vehicleMoreThan10YearsOld(List<Vehicle> vehicles) {

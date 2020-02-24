@@ -4,9 +4,9 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class VehicleService {
@@ -47,13 +47,9 @@ public class VehicleService {
         }
     }
 
-    public static Date convertStringToDate(String date) {
-        try {
-            return new SimpleDateFormat("dd.MM.yyyy").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        throw new RuntimeException();
+    public static LocalDate convertStringToDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return LocalDate.parse(date, formatter);
     }
 
     public static void isVehicleMoreThan10YearsOld(List<Vehicle> vehicles) {

@@ -16,15 +16,20 @@ public class VehicleTest {
 
     @Test
     public void methodShouldShowFullYearsOfVehicle() {
-        int fullYears = 17;
-
-        Assert.assertEquals(testVehicle.getAge(), fullYears);
+        //arrange
+        int expectedResult = 17;
+        //act
+        int actualResult = testVehicle.getAge();
+        //assert
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test
     public void methodShouldSortByBrandAndModel() {
+        //arrange
         List<Vehicle> sorted = Vehicle.sortVehicles(testVehicleList());
-
+        //act
+        //assert
         ReflectionAssert.assertReflectionEquals(sorted, correctlySortedVehiclesList());
     }
 

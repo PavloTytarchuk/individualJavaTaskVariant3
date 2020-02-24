@@ -13,11 +13,12 @@ import java.util.List;
 public class VehicleServiceTest {
     @Test
     public void serializedAndDeserializedDataShouldBeTheSame() throws IOException {
+        //arrange
         VehicleCollection listToSerialize = testData();
-
+        //act
         VehicleService.serializeToXML(testData(), "serializationTest.xml");
         VehicleCollection result = VehicleService.deserializeListFromXML("serializationTest.xml");
-
+        //assert
         ReflectionAssert.assertReflectionEquals(listToSerialize, result);
     }
 
