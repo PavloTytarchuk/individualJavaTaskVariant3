@@ -1,55 +1,28 @@
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import variant3.Car;
 import variant3.Vehicle;
-import variant3.VehicleService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleTest {
-    private final Vehicle testVehicle = new Vehicle("VAZ", "2109", VehicleService.convertStringToDate("20.08.2002"));
 
-    public VehicleTest() {
-    }
-
-    @Test
-    public void methodShouldShowFullYearsOfVehicle() {
+    @Test(priority = 1, dataProvider = "DataForTestingVehicleAge", dataProviderClass = VehicleDataProvider.class)
+    public void methodShouldShowFullYearsOfVehicle(Vehicle testVehicle, int expectedYears) {
         //arrange
-        int expectedFullYears = 17;
+        int expectedFullYears = expectedYears;
         //act
         int actualFullYears = testVehicle.getAge();
         //assert
         Assert.assertEquals(actualFullYears, expectedFullYears, "Expected and actual full years do not correspond");
     }
 
-    @Test
-    public void methodShouldSortByBrandAndModel() {
+    @Test(priority = 2, dataProvider = "DataForSortingTest", dataProviderClass = VehicleDataProvider.class)
+    public void methodShouldSortByBrandAndModel(List<Vehicle> testList, List<Vehicle> sortedList) {
         //arrange
-        List<Vehicle> actualResult = Vehicle.sortVehicles(testVehicleList());
+        List<Vehicle> expectedResult = sortedList;
         //act
-        List<Vehicle> expectedResult = correctlySortedVehiclesList();
+        List<Vehicle> actualResult = Vehicle.sortVehicles(testList);
         //assert
         Assert.assertEquals(actualResult, expectedResult, "Sorting doesn't work correct");
-    }
-
-    private static List<Vehicle> testVehicleList() {
-        List<Vehicle> vehicles = new ArrayList<>();
-        vehicles.add(new Vehicle("LAZ", "ElectroLAZ", VehicleService.convertStringToDate("29.06.2017")));
-        vehicles.add(new Vehicle("LAZ", "CityLAZ", VehicleService.convertStringToDate("19.02.2009")));
-        vehicles.add(new Car("Toyota", "Corolla", VehicleService.convertStringToDate("21.12.2013"), "Petrol"));
-        vehicles.add(new Car("Subaru", "Forester", VehicleService.convertStringToDate("31.12.2008"), "Petrol"));
-        vehicles.add(new Car("Toyota", "Yaris", VehicleService.convertStringToDate("14.07.2005"), "Petrol"));
-        return vehicles;
-    }
-
-    private static List<Vehicle> correctlySortedVehiclesList() {
-        List<Vehicle> correctlySortedList = new ArrayList<>();
-        correctlySortedList.add(new Vehicle("LAZ", "CityLAZ", VehicleService.convertStringToDate("19.02.2009")));
-        correctlySortedList.add(new Vehicle("LAZ", "ElectroLAZ", VehicleService.convertStringToDate("29.06.2017")));
-        correctlySortedList.add(new Car("Subaru", "Forester", VehicleService.convertStringToDate("31.12.2008"), "Petrol"));
-        correctlySortedList.add(new Car("Toyota", "Corolla", VehicleService.convertStringToDate("21.12.2013"), "Petrol"));
-        correctlySortedList.add(new Car("Toyota", "Yaris", VehicleService.convertStringToDate("14.07.2005"), "Petrol"));
-        return correctlySortedList;
     }
 }

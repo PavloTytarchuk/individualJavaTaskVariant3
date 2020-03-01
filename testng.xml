@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="/Users/pavel_tytarchuk/IdeaProjects/project_for_testing">
         <classes>
-            <class name="VehicleServiceTest"></class>
             <class name="VehicleTest"></class>
+            <class name="VehicleServiceTest"></class>
         </classes>
     </test>
 </suite>
