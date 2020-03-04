@@ -15,10 +15,7 @@ import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
@@ -93,21 +90,6 @@ public class Vehicle {
     @JsonIgnore
     public int getAge() {
         return Period.between(productionDate, LocalDate.now()).getYears();
-    }
-
-    public void vehicleMoreThan10YearsOld(List<Vehicle> vehicles) {
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle vehicle = vehicles.get(i);
-            if (vehicle.getAge() > 10) {
-                vehicle.output();
-            }
-        }
-    }
-
-    public static List<Vehicle> sortVehicles(List<Vehicle> vehicles) {
-        return vehicles.stream()
-                .sorted(Comparator.comparing(Vehicle::getBrand).thenComparing(Vehicle::getModel))
-                .collect(Collectors.toList());
     }
 
     @Override

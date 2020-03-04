@@ -1,6 +1,7 @@
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import variant3.Vehicle;
+import variant3.VehicleService;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class VehicleTest {
         //arrange
         List<Vehicle> expectedResult = sortedList;
         //act
-        List<Vehicle> actualResult = Vehicle.sortVehicles(testList);
+        List<Vehicle> actualResult = VehicleService.sortVehicles(testList);
         //assert
         Assert.assertEquals(actualResult, expectedResult, "Sorting doesn't work correct");
     }

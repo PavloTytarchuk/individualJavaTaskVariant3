@@ -3,8 +3,8 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="/Users/pavel_tytarchuk/IdeaProjects/project_for_testing">
         <classes>
-            <class name="VehicleTest"></class>
-            <class name="VehicleServiceTest"></class>
+            <class name="VehicleTest"/>
+            <class name="VehicleServiceTest"/>
         </classes>
     </test>
 </suite>

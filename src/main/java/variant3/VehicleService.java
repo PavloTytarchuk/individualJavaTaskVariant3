@@ -3,14 +3,15 @@ package variant3;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.*;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VehicleService {
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException {
 //        Vehicle vehicle1 = new Vehicle();
 //        vehicle1.input();
 //        vehicle1.output();
@@ -33,7 +34,7 @@ public class VehicleService {
         isVehicleMoreThan10YearsOld(vehicles);
         System.out.println();
         System.out.println("Sorted vehicles list:");
-        vehicles = Vehicle.sortVehicles(vehicles);
+        vehicles = sortVehicles(vehicles);
         for (Vehicle v : vehicles) {
             v.output();
         }
@@ -56,8 +57,7 @@ public class VehicleService {
     }
 
     public static void isVehicleMoreThan10YearsOld(List<Vehicle> vehicles) {
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle vehicle = vehicles.get(i);
+        for (Vehicle vehicle : vehicles) {
             if (vehicle.getAge() > 10) {
                 System.out.print("Vehicle older than 10 years: ");
                 vehicle.output();
@@ -65,13 +65,19 @@ public class VehicleService {
         }
     }
 
+    public static List<Vehicle> sortVehicles(List<Vehicle> vehicles) {
+        return vehicles.stream()
+                .sorted(Comparator.comparing(Vehicle::getBrand).thenComparing(Vehicle::getModel))
+                .collect(Collectors.toList());
+    }
+
     public static void writeToFile(List<Vehicle> list, String fileName) {
         try {
-            PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
+            PrintWriter writer = new PrintWriter(new FileOutputStream(fileName));
             for (Object e : list) {
-                pw.println(e.toString());
+                writer.println(e.toString());
             }
-            pw.close();
+            writer.close();
         } catch (FileNotFoundException e) {
             System.out.println("You've entered incorrect FileName, try again");
             writeToFile(list, fileName);
@@ -88,8 +94,7 @@ public class VehicleService {
     }
 
     public static VehicleCollection deserializeListFromXML(String fileName) throws IOException {
-        File fileToRead = new File(fileName);
         XmlMapper xmlMapper = new XmlMapper();
-        return xmlMapper.readValue(fileToRead, VehicleCollection.class);
+        return xmlMapper.readValue(new File(fileName), VehicleCollection.class);
     }
 }
