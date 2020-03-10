@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 
 public class VehicleService {
     public static void main(String[] args) throws IOException {
-//        Vehicle vehicle1 = new Vehicle();
-//        vehicle1.input();
-//        vehicle1.output();
-//        System.out.println("Vehicles full years: " + vehicle1.getAge());
-//        System.out.println();
-//        Car car = new Car();
-//        car.input();
-//        car.output();
+        Vehicle vehicle1 = new Vehicle();
+        vehicle1.input();
+        vehicle1.output();
+        System.out.println("Vehicles full years: " + vehicle1.getAge());
+        System.out.println();
+        Car car = new Car();
+        car.input();
+        car.output();
 
         List<Vehicle> vehicles = new ArrayList<>();
         vehicles.add(new Vehicle("LAZ", "ElectroLAZ", convertStringToDate("29.06.2017")));
